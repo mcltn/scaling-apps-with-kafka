@@ -5,18 +5,18 @@ const Kitchen = require('./models/kitchen.js')
 
 // environment variables for mongodb connection
 const MONGODB_REPLICA_HOSTNAMES = process.env.MONGODB_REPLICA_HOSTNAMES
-// const MONGODB_REPLICA_SET = process.env.MONGODB_REPLICA_SET
+const MONGODB_REPLICA_SET = process.env.MONGODB_REPLICA_SET
 const MONGODB_DBNAME = process.env.MONGODB_DBNAME
 const MONGODB_AUTH_DBNAME = process.env.MONGODB_AUTH_DBNAME || MONGODB_DBNAME
 const MONGODB_CA_PATH = process.env.MONGODB_CA_PATH
-// const MONGODB_USER = process.env.MONGODB_USER
-// const MONGODB_PASSWORD = process.env.MONGODB_PASSWORD
+const MONGODB_USER = process.env.MONGODB_USER
+const MONGODB_PASSWORD = process.env.MONGODB_PASSWORD
 mongoose
     .connect('mongodb://' + MONGODB_REPLICA_HOSTNAMES + '/', {
-        // user: MONGODB_USER,
-        // pass: MONGODB_PASSWORD,
+        user: MONGODB_USER,
+        pass: MONGODB_PASSWORD,
         dbName: MONGODB_DBNAME,
-        // replicaSet: MONGODB_REPLICA_SET,
+        replicaSet: MONGODB_REPLICA_SET,
         authSource: MONGODB_AUTH_DBNAME,
         tls: true,
         tlsCAFile: MONGODB_CA_PATH,
