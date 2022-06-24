@@ -41,7 +41,7 @@ class Architecture extends HTMLElement {
 
     updateArchitecture() {
         // clear canvas
-        this.context.clearRect(0,0,620,500)
+        this.context.clearRect(0,0,800,500)
         this.showArchitecture()
     }
 

@@ -126,7 +126,7 @@ class Graph extends HTMLElement {
         context.fill();
 
         // clear out of bounds line stroke
-        context.clearRect(190,0,190/18 + 3,canvas.height)
+        context.clearRect(290,0,290/18 + 3,canvas.height)
 
         context.globalAlpha = 1;
         
