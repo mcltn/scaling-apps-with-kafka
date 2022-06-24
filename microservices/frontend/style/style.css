@@ -51,7 +51,7 @@ body {
 
 .grid-container {
     display: grid;
-    grid-template-columns: 262px 600px;
+    grid-template-columns: 262px 740px;
     grid-template-rows: 80px 482px 325px;
     gap: 0px 0px;
     /* height:1000px; */
@@ -115,7 +115,7 @@ body {
 
 .analysis {
     border: 1px solid #ACC9D8;
-    width: 238px;
+    width: 378px;
     height: 280px;
     margin: 20px;
     margin-right: 0;

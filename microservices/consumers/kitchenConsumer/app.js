@@ -11,6 +11,9 @@ const MONGODB_AUTH_DBNAME = process.env.MONGODB_AUTH_DBNAME || MONGODB_DBNAME
 const MONGODB_CA_PATH = process.env.MONGODB_CA_PATH
 const MONGODB_USER = process.env.MONGODB_USER
 const MONGODB_PASSWORD = process.env.MONGODB_PASSWORD
+
+console.log('Loading...')
+
 mongoose
     .connect('mongodb://' + MONGODB_REPLICA_HOSTNAMES + '/', {
         user: MONGODB_USER,
@@ -27,6 +30,8 @@ mongoose
         console.log(error)
         process.exit(1)
     });
+
+console.log('Mongo connected.')
 
 KafkaWrapper.consumer.on('ready', function() {
     console.log('The consumer has connected.');

@@ -13,6 +13,9 @@ class Architecture extends HTMLElement {
     MICROSERVICETOP = 170;
     KAFKATOP = 380;
 
+    MONGOTOP = 60
+    MONGOX = 600
+
     CORNERRADIUS = 5;
 
     DASHEDLINES = '#536B78';
@@ -38,7 +41,7 @@ class Architecture extends HTMLElement {
 
     updateArchitecture() {
         // clear canvas
-        this.context.clearRect(0,0,600,500)
+        this.context.clearRect(0,0,620,500)
         this.showArchitecture()
     }
 
@@ -51,9 +54,11 @@ class Architecture extends HTMLElement {
         this.y = 1;
 
         this.drawOpenShift();
+        this.drawIBMCloud();
         this.drawApiGateway(this.context);
         this.drawMicroservices(this.context);
         this.drawKafka(this.context);
+        this.drawMongo(this.context);
     }
 
     log(string) {
@@ -68,12 +73,32 @@ class Architecture extends HTMLElement {
         ctx.beginPath();
         ctx.lineWidth = "1";
         ctx.strokeStyle = this.MSLINECOLOR;
-        this.roundedRectangle(ctx, this.x, this.y, 500, 480, this.CORNERRADIUS);
+        this.roundedRectangle(ctx, this.x, this.y, 490, 480, this.CORNERRADIUS);
         ctx.stroke();
 
-        ctx.font = "10px Arial";
-        ctx.fillStyle = "#CCCCCC";
-        ctx.fillText("RedHat OpenShift", 495, 20);
+        ctx.font = "12px Arial";
+        ctx.fillStyle = this.TEXTCOLOR;
+        ctx.fillText("Satellite Location", 100, 20);
+
+        ctx.fillStyle = "#DEDEDE";
+        ctx.fillText("IBM Cloud RedHat OpenShift", 100, 50);
+
+    }
+
+    drawIBMCloud() {
+        this.log(' - Drawing IBM Cloud Box');
+
+        let ctx = this.context;
+        ctx.beginPath();
+        ctx.lineWidth = "1";
+        ctx.setLineDash([]);
+        ctx.strokeStyle = this.MSLINECOLOR;
+        this.roundedRectangle(ctx, 590, 0, 140, 480, this.CORNERRADIUS);
+
+        ctx.stroke();
+        ctx.font = "12px Arial";
+        ctx.fillStyle = this.TEXTCOLOR;
+        ctx.fillText("IBM Cloud", 595, 20);
     }
 
     drawApiGateway(ctx) {
@@ -124,7 +149,7 @@ class Architecture extends HTMLElement {
     }
 
     drawDB(ctx, x, y, db) {
-        this.log(' - Drawing Mongo Box');
+        this.log(' - Drawing DB Box');
         // Mongo rectangle
 
         let HEIGHT = 40;
@@ -151,6 +176,31 @@ class Architecture extends HTMLElement {
         ctx.stroke();
     }
 
+    drawMongo(ctx) {
+        this.log(' - Drawing Mongo Box');
+
+        // Mongo rectangle
+        let margin = 14;
+
+        ctx.beginPath();
+        ctx.lineWidth = "1";
+        ctx.setLineDash([]);
+        ctx.strokeStyle = this.MSLINECOLOR;
+        this.roundedRectangle(ctx, this.MONGOX+margin, this.MONGOTOP+margin, 92, 132, this.CORNERRADIUS);
+
+        ctx.stroke();
+        ctx.font = "12px Arial";
+        ctx.fillStyle = this.TEXTCOLOR;
+        ctx.fillText("Databases for", 620, 100);
+        ctx.fillText("MongoDB", 620, 120);
+
+        ctx.lineWidth = "1";
+        ctx.setLineDash([5, 3]);
+        ctx.strokeStyle = this.DASHEDLINES;
+        this.roundedRectangle(ctx, this.MONGOX, this.MONGOTOP, 120, 160, this.CORNERRADIUS);
+
+    }
+
     drawMicroservices(ctx) {
         this.log(' - Drawing MicroServices');
         ctx.beginPath();
@@ -166,13 +216,13 @@ class Architecture extends HTMLElement {
         driverDiff = this.getAttribute('driverworkers-offsetdifference') || 0
         kitchenDiff = this.getAttribute('kitchenworkers-offsetdifference') || 0
 
-        this.drawService(ctx, 145, this.MICROSERVICETOP, 'Status', 'Redis', status, statusDiff);
-        this.drawService(ctx, 255, this.MICROSERVICETOP, 'Order', 'MongoDB', order, orderDiff);
-        this.drawService(ctx, 365, this.MICROSERVICETOP, 'Driver', 'MongoDB', driver, driverDiff);
-        this.drawService(ctx, 475, this.MICROSERVICETOP, 'Kitchen', 'MongoDB', kitchen, kitchenDiff);
+        this.drawService(ctx, 145, this.MICROSERVICETOP, 'Status', 'Redis', status, statusDiff, 0);
+        this.drawService(ctx, 250, this.MICROSERVICETOP, 'Order', 'MongoDB', order, orderDiff, 75);
+        this.drawService(ctx, 355, this.MICROSERVICETOP, 'Driver', 'MongoDB', driver, driverDiff, 55);
+        this.drawService(ctx, 465, this.MICROSERVICETOP, 'Kitchen', 'MongoDB', kitchen, kitchenDiff, 35);
     }
 
-    drawService(ctx, x, y, label, db, workers, offsetdifference) {
+    drawService(ctx, x, y, label, db, workers, offsetdifference, ibmoffset) {
         this.log(' - Drawing ' + label + ' service');
 
         /* box for service */
@@ -207,7 +257,12 @@ class Architecture extends HTMLElement {
         ctx.fillText(workers, x-1 + this.SERVICEWIDTH, y +4);
         ctx.stroke();
 
-        this.drawDB(ctx, x, y, db);
+        if (db=="Redis"){
+            this.drawDB(ctx, x, y, db);
+        }
+        if (db=="MongoDB"){
+            this.drawMongoArrow(ctx, x, y, ibmoffset);
+        }
 
         let margin = 14;
 
@@ -216,7 +271,8 @@ class Architecture extends HTMLElement {
         ctx.lineWidth = "1";
         ctx.setLineDash([5, 3]);
         ctx.strokeStyle = this.DASHEDLINES;
-        ctx.rect(x - margin, y - 114, this.SERVICEWIDTH + (margin * 2), 190);
+        //ctx.rect(x - margin, y - 114, this.SERVICEWIDTH + (margin * 2), 190);
+        ctx.rect(x - margin, y - margin, this.SERVICEWIDTH + (margin * 2), this.SERVICEHEIGHT + (margin * 2));
         ctx.stroke();
 
         this.drawKafkaTopic(ctx, x, y, offsetdifference)
@@ -267,6 +323,18 @@ class Architecture extends HTMLElement {
         context.lineTo(tox - headlen * Math.cos(angle - Math.PI / 6), toy - headlen * Math.sin(angle - Math.PI / 6));
         context.moveTo(tox, toy);
         context.lineTo(tox - headlen * Math.cos(angle + Math.PI / 6), toy - headlen * Math.sin(angle + Math.PI / 6));
+    }
+
+    drawMongoArrow(context, fromx, fromy, z) {
+        var headlen = 10;
+        context.moveTo(fromx+30, fromy);
+        context.lineTo(fromx+30, fromy-z);
+
+        context.lineTo(this.MONGOX+14, fromy-z);
+
+        context.lineTo(this.MONGOX+9, fromy-z-5);
+        context.moveTo(this.MONGOX+14, fromy-z);
+        context.lineTo(this.MONGOX+9, fromy-z+5);
     }
 
     roundedRectangle(context, x, y, w, h, radius) {

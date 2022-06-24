@@ -20,10 +20,10 @@ class KafkaWrapper {
         let driver_options = {
             //'debug': 'all',
             'metadata.broker.list': brokers,
-            'security.protocol': protocol,
-            'sasl.mechanisms': mechanism,
-            'sasl.username': username,
-            'sasl.password': password,
+            //'security.protocol': protocol,
+            //'sasl.mechanisms': mechanism,
+            //'sasl.username': username,
+            //'sasl.password': password,
             'log.connection.close' : false,
             'enable.auto.commit': false
         };
@@ -115,14 +115,17 @@ class KafkaWrapper {
     }
 
     courierMatchedEvent(order, simulatorConfig, callback) {
+        console.log(order)
         this.createEvent(order, 'courierMatched', simulatorConfig, callback)
     }
 
     courierPickedUpEvent(order, simulatorConfig, callback) {
+        console.log(order)
         this.createEvent(order, 'courierPickedUp', simulatorConfig, callback)
     }
 
     deliveredEvent(order, simulatorConfig, callback) {
+        console.log(order)
         this.createEvent(order, 'delivered', simulatorConfig, callback)
     }
 }

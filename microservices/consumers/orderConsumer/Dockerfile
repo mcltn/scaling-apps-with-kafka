@@ -1,4 +1,4 @@
-FROM node:12-alpine
+FROM node:14-alpine
 
 RUN apk --no-cache add \
       bash \
@@ -12,10 +12,14 @@ RUN apk --no-cache add \
       python3
 
 RUN apk add --no-cache --virtual .build-deps gcc zlib-dev libc-dev bsd-compat-headers py-setuptools bash
+RUN mkdir -p /home/node/app
+RUN chown -R node:node /home/node/app
 
-WORKDIR /usr/src/app
+WORKDIR /home/node/app
 
 COPY . ./
+
+USER node
 
 RUN npm install
 CMD [ "node", "app.js" ]
