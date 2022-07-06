@@ -1,4 +1,5 @@
 :root {
+    /*
     --loyalty-background-color: white;
     --loyalty-app-color: white;
     --loyalty-text-color: #494A4B;
@@ -8,14 +9,27 @@
     --loyalty-sensor-color: #FFFFFF;
     --loyalty-divide-color: aliceblue;
     --loyalty-highlight-color: #fff2e5;
+    */
+    /*DARK THEME
+    --container-color: #ffffff;
+    --orderlabel-color: #000000;
+    --linksarea-color: #000000;
+    --restaurant-dish-color: #000000;
+    */
+
+    /*LIGHT THEME*/
+    --appname-color: #000000;
+    --container-color: #000000;
+    --orderlabel-color: #000000;
+    --linksarea-color: #000000;
+    --restaurant-dish-color: #000000;
+
 }
 
 body {
     padding: 0;
     margin: 0;
-    color: var(--lyrics-analysis-ink-color);
     font-family: 'Roboto', sans-serif;
-    background: #2C3A42;
     /* font-family: 'IBM Plex Sans', sans-serif; */
 }
 
@@ -25,12 +39,12 @@ body {
 
 .appname {
     /* font-weight:bold; */
-    color: white;
+    color: var(--appname-color);
 }
 
 .info {
     /* font-weight:bold; */
-    color: white;
+    color: var(--appname-color);
 }
 
 .container {
@@ -47,6 +61,7 @@ body {
     align-items: center;
     background: var(--farrow-background-color);
     /* padding-bottom: 100px; */
+    color: var(--container-color);
 }
 
 .grid-container {
@@ -127,10 +142,12 @@ body {
 }
 
 .linksarea {
-    background: #f3f3f3;
+    background: #fdf9f0;
     margin-top: 40px;
     height: 280px;
     border-radius: 4px;
+    border: 1px dashed #cfb1a4;
+    color: var(--linksarea-color);
 }
 
 .linkstitle {
@@ -150,13 +167,13 @@ body {
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    border-top: 1px dotted #ACC9D8;
+    border-top: 1px dotted #cfb1a4;
     margin-top: 10px;
     height: 36px;
 }
 
 .controlbutton {
-    background: #ACC9D8;
+    background: #fcd89d;
     border: none;
     font-size: 10px;
     margin: 10px;

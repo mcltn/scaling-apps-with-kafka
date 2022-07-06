@@ -4,7 +4,11 @@ class Architecture extends HTMLElement {
         return ['kitchenEvents', 'orderEvents', 'driverEvents', 'kitchenworkers', 'orderworkers', 'driverworkers', 'statusworkers'];
     }
 
-    TEXTCOLOR = '#FFFFFF';
+    //TEXTCOLOR = '#FFFFFF'; // DARK THEME
+    //TEXTCOLOR = '#000000'; // LIGHT THEME
+    
+    TEXTCOLOR = "#FF0000";
+    
     COUNTFILLCOLOR =  '#569BC6' // 'rgba(141,214,249,.5)'; // #FCD89D'
     MSLINECOLOR = '#ACC9D8'; 
     SERVICEHEIGHT = 60;
@@ -28,6 +32,9 @@ class Architecture extends HTMLElement {
         const shadow = this.attachShadow({
             mode: 'open'
         })
+        const element = document.querySelector('.container')
+        const style = getComputedStyle(element)
+        this.TEXTCOLOR = style.color;
     }
 
     async connectedCallback() {

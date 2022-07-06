@@ -19,15 +19,20 @@ async function getFavoriteRestaurants() {
 function socketFavoriteRestaurants(callback) {
     // listen to socket
     let loc = window.location;
-    let wsurl = "ws://" + loc.host + loc.pathname + "favorites"
-    // let wsurl = "ws://example-food-demo.anthonyamanse-4-5-f2c6cdc6801be85fd188b09d006f13e3-0000.us-east.containers.appdomain.cloud/favorites"
-    const socket = new WebSocket(wsurl);
-    socket.addEventListener('message', function (event) {
-        try {
-            let dataObject = JSON.parse(event.data)
-            callback(dataObject)
-        } catch (err) {
-            console.error(err)
-        }
-    });
+    let wsurl = "ws://" + loc.host + loc.pathname + "favorites";
+    console.log(loc.host);
+    try {
+        // let wsurl = "ws://example-food-demo.anthonyamanse-4-5-f2c6cdc6801be85fd188b09d006f13e3-0000.us-east.containers.appdomain.cloud/favorites"
+        const socket = new WebSocket(wsurl);
+        socket.addEventListener('message', function (event) {
+            try {
+                let dataObject = JSON.parse(event.data)
+                callback(dataObject)
+            } catch (err) {
+                console.error(err)
+            }
+        });
+    } catch (err) {
+        console.log("Error getting favorites via websocket");
+    }
 }

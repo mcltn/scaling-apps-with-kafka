@@ -1,5 +1,7 @@
 class Graph extends HTMLElement {
 
+    TEXTCOLOR = "#FF0000";
+
     static get observedAttributes() {
         return ['title','left','right','ordersplaced','ordersfulfilled', 'timetocomplete'];
     }
@@ -13,6 +15,9 @@ class Graph extends HTMLElement {
         const shadow = this.attachShadow({
             mode: 'open'
         })
+        const element = document.querySelector('.container')
+        const style = getComputedStyle(element)
+        this.TEXTCOLOR = style.color;
     }
 
     async connectedCallback() {
@@ -144,9 +149,9 @@ class Graph extends HTMLElement {
 
         context.stroke();  
 
-        context.font = "12px Arial bold";
+        context.font = "12px Roboto";
         for (let index = 1; index < 10; index++) {
-            context.strokeStyle = 'white';
+            context.strokeStyle = this.TEXTCOLOR;
             context.strokeText(canvasScaled - (index * (canvasScaled/10)), canvas.width - 20, (horizontalLine * index) - 1);
         }
 

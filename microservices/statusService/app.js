@@ -17,6 +17,7 @@ app.use(express.json());
 app.use(cors())
 
 app.get("/status/:requestId", (req, res) => {
+    console.log(`Get status: ${req.params.requestId}`);
     let requestId = req.params.requestId
     redis.get(requestId).then(result => {
         res.status('200').send(JSON.parse(result))
@@ -27,6 +28,7 @@ app.get("/status/:requestId", (req, res) => {
 })
 
 app.post("/status/:requestId", (req, res) => {
+    console.log(`Post status: ${req.params.requestId}`);
     let requestId = req.params.requestId
     let value = req.body.value
     redis.get(requestId).then(result => {

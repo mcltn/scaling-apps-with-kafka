@@ -108,11 +108,24 @@ async function getOffsets() {
     let kitchen = await KafkaWrapper.admin.fetchOffsets({ groupId: 'kitchen-consumer-group', topic: 'orders'})
     let courier = await KafkaWrapper.admin.fetchOffsets({ groupId: 'courier-consumer-group', topic: 'orders'})
     let status = await KafkaWrapper.admin.fetchOffsets({ groupId: 'status-consumer-group', topic: 'orders'})
-    // console.log(orders)
+ 
+    console.log('1 offset ################')
+    console.log(orders)
+    console.log(kitchen)
+    console.log(courier)
+    console.log(status)
+ 
     orders = getSumOfPartitionsOffset(orders)
     kitchen = getSumOfPartitionsOffset(kitchen)
     courier = getSumOfPartitionsOffset(courier)
     status = getSumOfPartitionsOffset(status)
+ 
+    console.log('2 offset ################')
+    console.log(orders)
+    console.log(kitchen)
+    console.log(courier)
+    console.log(status)
+ 
     let currentOffset = { orders, kitchen, courier, status }
     if (!previousOffset) {
         // console.log('no previous')

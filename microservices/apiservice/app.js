@@ -11,7 +11,16 @@ const PORT = process.env.PORT || 8080
 
 const STATUS_SERVICE = process.env.STATUS_SERVICE || 'http://status:8080'
 
-app.use('/status', createProxyMiddleware({ target: STATUS_SERVICE, changeOrigin: true }))
+let proxyOptions = {
+    target: process.env.STATUS_SERVICE,
+    changeOrigin: false,
+    xfwd: true,
+    proxyTimeout: 3000,
+    secure: false,
+    logger: console,
+};
+
+app.use('/status', createProxyMiddleware(proxyOptions));
 
 function setStatus(key, value) {
     let data = { value }
@@ -19,7 +28,7 @@ function setStatus(key, value) {
 }
 
 app.use(express.json());
-app.use(cors())
+app.use(cors());
 
 // {
 //     "orderId":"",

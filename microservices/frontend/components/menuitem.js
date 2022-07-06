@@ -16,7 +16,8 @@ class MenuItem extends HTMLElement {
     }
 
     async connectedCallback() {
-        let res = await fetch('./components/menuitem.html', {cache: "force-cache"})
+        //let res = await fetch('./components/menuitem.html', {cache: "force-cache"})
+        let res = await fetch('./components/menuitem.html', {cache: "reload"})
         var sr = this.shadowRoot;
         sr.innerHTML = await res.text();
         this.showItem();

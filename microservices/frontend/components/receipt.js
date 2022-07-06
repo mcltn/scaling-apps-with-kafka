@@ -16,7 +16,7 @@ class Receipt extends HTMLElement {
     }
 
     async connectedCallback() {
-        let res = await fetch('./components/receipt.html')
+        let res = await fetch('./components/receipt.html', {cache: "reload"})
         var sr = this.shadowRoot;
         sr.innerHTML = await res.text();
         // show stored locally then update

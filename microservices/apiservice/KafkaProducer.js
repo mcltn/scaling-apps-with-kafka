@@ -19,10 +19,10 @@ class KafkaProducer {
         let driver_options = {
             //'debug': 'all',
             'metadata.broker.list': brokers,
-            'security.protocol': protocol,
-            'sasl.mechanisms': mechanism,
-            'sasl.username': username,
-            'sasl.password': password,
+            //'security.protocol': protocol,
+            //'sasl.mechanisms': mechanism,
+            //'sasl.username': username,
+            //'sasl.password': password,
             'log.connection.close' : false
         };
         let producerConfig = {

@@ -23,10 +23,10 @@ class KafkaWrapper {
         let driver_options = {
             //'debug': 'all',
             'metadata.broker.list': brokers,
-            'security.protocol': protocol,
-            'sasl.mechanisms': mechanism,
-            'sasl.username': username,
-            'sasl.password': password,
+            //'security.protocol': protocol,
+            //'sasl.mechanisms': mechanism,
+            //'sasl.username': username,
+            //'sasl.password': password,
             'log.connection.close' : false,
             'enable.auto.commit': false,
             'statistics.interval.ms': 1000
@@ -79,12 +79,12 @@ class KafkaWrapper {
         let adminKafka = new KafkaJS({
             clientId: 'admin',
             brokers: brokers.split(','),
-            ssl: true,
-            sasl: {
-                mechanism,
-                username,
-                password
-            }
+            //ssl: true,
+            //sasl: {
+            //    mechanism,
+            //    username,
+            //    password
+            //}
         }).admin()
         this.admin = adminKafka
     }
