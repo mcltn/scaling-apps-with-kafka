@@ -39,7 +39,7 @@ class Phone extends HTMLElement {
 
     createUserUUID() {
         if (localStorage.getItem('userId') == null) {
-            localStorage.setItem('userId', uuidv4())
+            localStorage.setItem('userId', Math.random()*16)
         }
     }
     
